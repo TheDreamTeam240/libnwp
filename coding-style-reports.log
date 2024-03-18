@@ -1,3 +1,1 @@
 ./Makefile:65: illegal token in column 28, giving up (hint: fix the file or remove it from the working set)
-./src/connect_sock.c:1: MINOR:C-G1
-./src/connect_sock_modifiers.c:1: MINOR:C-G1

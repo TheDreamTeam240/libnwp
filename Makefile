@@ -52,10 +52,10 @@ fclean: clean
 re: fclean all
 
 tests_run: $(TEST_BIN)
-	LD_LIBRARY_PATH=. $(TEST_BIN)
+	LD_LIBRARY_PATH=. $(TEST_BIN) --verbose
 
 $(TEST_BIN): CFLAGS += --coverage
-$(TEST_BIN): $(TEST_OBJ) all
+$(TEST_BIN): $(TEST_OBJ) $(NAME)
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -lcriterion -L$(BIN_DIR) -l$(NAME)
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
