@@ -14,10 +14,8 @@ client_callback_t *init_client_callback(void)
 {
     client_callback_t *client_callback = malloc(sizeof(client_callback_t));
 
-    if (client_callback == NULL) {
-        dprintf(2, "Error: malloc failed\n");
+    if (client_callback == NULL)
         return NULL;
-    }
     client_callback->connect_callback = NULL;
     client_callback->write_callback = NULL;
     client_callback->read_callback = NULL;

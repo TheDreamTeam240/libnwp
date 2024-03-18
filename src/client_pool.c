@@ -28,18 +28,14 @@ client_pool_t *init_client_pool(int listen_sock_fd,
 {
     client_pool_t *client_pool = malloc(sizeof(client_pool_t));
 
-    if (client_pool == NULL) {
-        dprintf(2, "Error: malloc failed\n");
+    if (client_pool == NULL)
         return NULL;
-    }
     client_pool->listen_sock_fd = listen_sock_fd;
     client_pool->client_callback = client_callback;
     client_pool->last_client_index = 0;
     memcpy(client_pool->data, data, sizeof(void *) * MAX_CLIENTS);
-    if (init_client_pool_clients(client_pool) == EXIT_FAILURE) {
-        dprintf(2, "Error: init_client_pool_clients failed\n");
+    if (init_client_pool_clients(client_pool) == EXIT_FAILURE)
         return NULL;
-    }
     return client_pool;
 }
 
@@ -48,10 +44,8 @@ int terminate_client_pool(client_pool_t *client_pool)
     for (int i = 0; i < MAX_CLIENTS; i++) {
         if (client_pool->clients_state[i] == CLIENT_NOT_USED)
             continue;
-        if (terminate_client(client_pool->clients[i]) == EXIT_FAILURE) {
-            dprintf(2, "Error: terminate_client failed\n");
+        if (terminate_client(client_pool->clients[i]) == EXIT_FAILURE)
             return EXIT_FAILURE;
-        }
     }
     free(client_pool);
     return EXIT_SUCCESS;

@@ -16,14 +16,10 @@ int handle_readable_listen_sock(client_pool_t *client_pool)
     client_t *client = NULL;
 
     client = init_client(client_pool->listen_sock_fd);
-    if (client == NULL) {
-        dprintf(2, "Error: init_client failed\n");
+    if (client == NULL)
         return EXIT_FAILURE;
-    }
-    if (add_client(client_pool, client) == EXIT_FAILURE) {
-        dprintf(2, "Error: add_client failed\n");
+    if (add_client(client_pool, client) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    }
     if (client_pool->client_callback->connect_callback(
         client_pool, client,
         client_pool->data[client_pool->last_client_index])

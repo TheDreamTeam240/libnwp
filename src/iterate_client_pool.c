@@ -45,13 +45,9 @@ int iterate_client_pool(client_pool_t *client_pool)
 
 int client_pool_routine(client_pool_t *client_pool)
 {
-    if (refresh_client_pool(client_pool) == EXIT_FAILURE) {
-        dprintf(2, "Error: refresh_client_pool failed\n");
+    if (refresh_client_pool(client_pool) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    }
-    if (iterate_client_pool(client_pool) == EXIT_FAILURE) {
-        dprintf(2, "Error: iterate_client_pool failed\n");
+    if (iterate_client_pool(client_pool) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    }
     return EXIT_SUCCESS;
 }

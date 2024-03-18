@@ -34,15 +34,11 @@ int refresh_client_pool(client_pool_t *client_pool)
         &client_pool->error_fds};
 
     for (int i = 0; i < 3; i++) {
-        if (refresh_fd_set(client_pool, fd_sets[i]) == EXIT_FAILURE) {
-            dprintf(2, "Error: refresh_fd_set failed\n");
+        if (refresh_fd_set(client_pool, fd_sets[i]) == EXIT_FAILURE)
             return EXIT_FAILURE;
-        }
     }
     if (select(client_pool->max_fd + 1, &client_pool->read_fds,
-        NULL, &client_pool->error_fds, NULL) == -1) {
-        dprintf(2, "Error: select failed\n");
+        NULL, &client_pool->error_fds, NULL) == -1)
         return EXIT_FAILURE;
-    }
     return EXIT_SUCCESS;
 }
