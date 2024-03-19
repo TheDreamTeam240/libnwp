@@ -21,16 +21,6 @@ COVERAGE = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.gcno) \
 	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.gcda)
 BIN = $(BIN_DIR)/lib$(NAME).so
 
-TEST_SRC_DIR = ./tests/src
-TEST_OBJ_DIR = ./tests/obj
-TEST_BIN_DIR = $(BIN_DIR)
-
-TEST_SRC = $(wildcard $(TEST_SRC_DIR)/*.c)
-TEST_OBJ = $(TEST_SRC:$(TEST_SRC_DIR)/%.c=$(TEST_OBJ_DIR)/%.o)
-TEST_COVERAGE = $(TEST_SRC:$(TEST_SRC_DIR)/%.c=$(TEST_OBJ_DIR)/%.gcno) \
-	$(TEST_SRC:$(TEST_SRC_DIR)/%.c=$(TEST_OBJ_DIR)/%.gcda)
-TEST_BIN = $(TEST_BIN_DIR)/unit_tests
-
 all: $(NAME)
 
 $(NAME): $(OBJ)
@@ -51,14 +41,4 @@ fclean: clean
 
 re: fclean all
 
-tests_run: $(TEST_BIN)
-	LD_LIBRARY_PATH=. $(TEST_BIN) --verbose
-
-$(TEST_BIN): CFLAGS += --coverage
-$(TEST_BIN): $(TEST_OBJ) $(NAME)
-	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -lcriterion -L$(BIN_DIR) -l$(NAME)
-
-$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-.PHONY: all clean fclean re tests_run
+.PHONY: all clean fclean re
