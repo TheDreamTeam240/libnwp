@@ -31,13 +31,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	rm -f $(OBJ)
-	rm -f $(TEST_OBJ)
 
 fclean: clean
 	rm -f $(BIN)
-	rm -f $(COVERAGE)
-	rm -f $(TEST_COVERAGE)
-	rm -f $(TEST_BIN)
 
 re: fclean all
 
